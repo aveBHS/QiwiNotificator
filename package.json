@@ -1,0 +1,20 @@
+{
+  "name": "qiwinotificator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aveBHS/QiwiNotificator.git"
+  },
+  "author": "BHS Studio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aveBHS/QiwiNotificator/issues"
+  },
+  "homepage": "https://github.com/aveBHS/QiwiNotificator#readme"
+}
