@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/aveBHS/QiwiNotificator/issues"
   },
-  "homepage": "https://github.com/aveBHS/QiwiNotificator#readme"
+  "homepage": "https://github.com/aveBHS/QiwiNotificator#readme",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
 }
