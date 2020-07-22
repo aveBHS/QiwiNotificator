@@ -3,34 +3,74 @@ const { currencyTypes } = require("./const.js");
 const fs = require("fs");
 
 exports.renderPayment = function (data, paymentBox, qiwiLogin){
-    let title, body, commission = '';
-    let comment = '';
-    let sender = '';
+    let body, commission = '';
+    let info = '';
 
     if(data.commission.amount > 0){
-        commission = `<br>Комиссия опперации: ${data.commission.amount} ${currencyTypes[data.commission.currency.toString()]}`;
-    }
-    if(data.comment != null){
-        comment = `<br>Комментарий: ${data.comment}`;
+        commission = `<p>Комиссия опперации: ${data.commission.amount} ${currencyTypes[data.commission.currency.toString()]}</p>`;
     }
     if(data.view.account != ''){
         if(data.view.account.substring(2) != qiwiLogin.substring(1)){
-            sender = `<br>Отправитель: ${data.view.account}${comment}`;
+            if(data.type == 'IN'){
+                info = `<p class='payment_more_info'>Отправитель: ${data.view.account}</p>`;
+            }
+            else{
+                info = `<p class='payment_more_info'>Получатель: ${data.view.account}</p>`;
+            }
         }
     }
+    if(data.comment != null){
+        info = `<p class='payment_more_info'>Комментарий: ${data.comment}</p>`;
+    }
+    if(data.provider.logoUrl == undefined){
+        data.provider.logoUrl = "./img/no_pic.png";
+    }
     if(data.type == 'IN'){
-        title = "<h2>Пополнение Qiwi кошелька</h2>";
-        body = `Приход: ${data.sum.amount} ${currencyTypes[data.sum.currency.toString()]}${commission}` + 
-        `${sender}` +
-        `<br>Дата: ${data.date.split('+')[0].replace('T', ' в ')}`;
+        // body = `
+        // <table class='payment'>
+        //     <img class='payment_img' src='${data.provider.logoUrl}'>
+        //     <p>Пополнение Qiwi кошелька</p>
+        //     <p class='payment_amount positive'>Приход: ${data.sum.amount} ${currencyTypes[data.sum.currency.toString()]}</p>
+        //     ${commission}
+        //     ${sender}
+        //     <p>Дата: ${data.date.split('+')[0].replace('T', ' в ')}</p>
+        // </table>`;
+        body = `
+        <table class='payment'>
+            <tr>
+                <td class='payment_img'>
+                    <img class='payment_img' src='${data.provider.logoUrl}'>
+                </td>
+                <td class='payment_title'>
+                    Пополнение QIWI кошелька
+                    ${info}
+                </td>
+                <td class='payment_amount positive'>
+                    +${data.total.amount} ${currencyTypes[data.total.currency.toString()]}
+                </td>
+            </tr>
+            <!--<p>Дата: ${data.date.split('+')[0].replace('T', ' в ')}</p>-->
+        </table>`;
     }
     else{
-        title = `<h2>${data.view.title}</h2>`;
-        body = `Сумма перевода: ${data.total.amount} ${currencyTypes[data.total.currency.toString()]}${commission}` + 
-        `<br>Получатель: ${data.view.account}${comment}` + 
-        `<br>Дата: ${data.date.split('+')[0].replace('T', ' в ')}`;
+        body = `
+        <table class='payment'>
+            <tr>
+                <td class='payment_img'>
+                    <img class='payment_img' src='${data.provider.logoUrl}'>
+                </td>
+                <td class='payment_title'>
+                    ${data.view.title} ${data.view.account}
+                    ${info}
+                </td>
+                <td class='payment_amount negative'>
+                    -${data.total.amount} ${currencyTypes[data.total.currency.toString()]}
+                </td>
+            </tr>
+            <!--<p>Дата: ${data.date.split('+')[0].replace('T', ' в ')}</p>-->
+        </table>`;
     }
-    paymentBox.innerHTML += (title + body + "<hr>");
+    paymentBox.innerHTML += body;
 }
 
 exports.loadPayments = function (paymentBox, render, loadBox){
@@ -59,6 +99,7 @@ exports.loadPayments = function (paymentBox, render, loadBox){
             else{
                 let data = JSON.parse(response.body).data;
                 data.forEach((data) => {
+                    console.log(data);
                     render(data, paymentBox, qiwiLogin);
                 });
                 loadBox.hidden = true;
