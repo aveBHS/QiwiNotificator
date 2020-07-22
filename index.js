@@ -1,13 +1,14 @@
 const {app, BrowserWindow, Notification} = require("electron");
 const request = require('request');
-const core = require('./core');
-const currencyTypes = {
-    '643': 'RUB'
-};
+const { currencyTypes } = require("./js/const.js");
 
+let qiwiToken = "";
+let qiwiLogin = "";
 
 let lastPaymentID = 0;
 let main = null;
+
+console.log(currencyTypes);
 
 function getPayments() {
     let url = new URL('https://edge.qiwi.com/payment-history/v2/persons/' + qiwiLogin + '/payments');
@@ -92,8 +93,9 @@ function createMainWindow(){
         width: 800,
         height: 600,
         webPreferences: {
-            nodeIntergration: true
-        }
+            nodeIntegration: true
+        },
+        icon: "./img/icon.png"
     });
 
     main.loadFile('index.html');
