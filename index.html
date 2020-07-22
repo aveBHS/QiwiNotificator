@@ -1,1 +1,24 @@
-<h1>Hello, World!</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qiwi Notificator</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<div id="load_box">
+    <img id="load_img" src="img/load.gif"/>
+</div>
+<body>
+    <div id="payments"></div>
+
+    <script>
+        const {renderPayment, loadPayments} = require("./js/core.js");
+        const paymentBox = document.getElementById("payments");
+        const loadBox = document.getElementById("load_box");
+        loadBox.hidden = true;
+    </script>
+
+    <button onclick="loadPayments(paymentBox, renderPayment, loadBox);" id="getpaymentsbtn">Загрузить платежи</button>
+</body>
+</html>

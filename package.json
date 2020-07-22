@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/aveBHS/QiwiNotificator#readme",
   "dependencies": {
+    "electron": "^9.1.0",
     "request": "^2.88.2"
   }
 }

@@ -1,14 +1,11 @@
 const {app, BrowserWindow, Notification} = require("electron");
 const request = require('request');
 const { currencyTypes } = require("./js/const.js");
-
-let qiwiToken = "";
-let qiwiLogin = "";
+const { loadQiwiInfo } = require("./js/core");
 
 let lastPaymentID = 0;
 let main = null;
-
-console.log(currencyTypes);
+let qiwiToken, qiwiLogin;
 
 function getPayments() {
     let url = new URL('https://edge.qiwi.com/payment-history/v2/persons/' + qiwiLogin + '/payments');
@@ -100,6 +97,10 @@ function createMainWindow(){
 
     main.loadFile('index.html');
     main.show();
+
+    let qiwiInfo = loadQiwiInfo();
+    qiwiLogin = qiwiInfo.login;
+    qiwiToken = qiwiInfo.token;
 
     setInterval(getPayments, 3000);
 }
