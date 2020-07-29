@@ -56,8 +56,8 @@
 }
 
 html, body{
+    margin: 0;
     padding: 0;
-    margin: 10px;
     height: 100%;
     background-color: #EEE;
     font-family: 'Museo Sans', 'Arial', 'Helvetica Neue', 'Helvetica', sans-serif;
@@ -80,6 +80,10 @@ html, body{
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+#payments{
+    padding: 10px;
 }
 
 .payment {
@@ -132,4 +136,11 @@ table{
     font-size: 13px;
     margin-top: 3px;
     margin-bottom: 3px;
+}
+
+#header{
+    background-color: #FFF;
+    padding: 10px;
+    height: 100px;
+    margin-bottom: 10px;
 }
