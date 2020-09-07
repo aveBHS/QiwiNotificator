@@ -73,7 +73,7 @@ exports.renderPayment = function (data, paymentBox, qiwiLogin){
     paymentBox.innerHTML += body;
 }
 
-exports.loadPayments = function (paymentBox, render, loadBox){
+exports.loadPayments = function (paymentBox, render, loadBox, hideElements){
     const { loadQiwiInfo } = require("./core.js");
     let qiwiInfo = loadQiwiInfo();
     let qiwiLogin = qiwiInfo.login;
@@ -84,7 +84,7 @@ exports.loadPayments = function (paymentBox, render, loadBox){
 
     paymentBox.innerHTML = "";
     loadBox.hidden = false;
-
+    hideElements.forEach((el) => { el.hidden = true; });
     request.get(
         {
             url: url,
@@ -103,6 +103,7 @@ exports.loadPayments = function (paymentBox, render, loadBox){
                     render(data, paymentBox, qiwiLogin);
                 });
                 loadBox.hidden = true;
+                hideElements.forEach((el) => { el.hidden = false; });
             }
         }
     );

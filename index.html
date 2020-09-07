@@ -22,9 +22,16 @@
         loadBox.hidden = true;
     </script>
 
-    <button onclick="loadPayments(paymentBox, renderPayment, loadBox);" id="getpaymentsbtn">Загрузить платежи</button>
+    <button onclick="loadPayments(paymentBox, renderPayment, loadBox, hideElements);" id="getpaymentsbtn">Загрузить платежи</button>
     <script>
-        document.addEventListener("DOMContentLoaded", () => { loadPayments(paymentBox, renderPayment, loadBox); });
+        var hideElements = [
+            document.getElementById('header'),
+            document.getElementById('getpaymentsbtn')
+        ];
+        document.addEventListener("DOMContentLoaded", () => 
+        { 
+            loadPayments(paymentBox, renderPayment, loadBox, hideElements); 
+        });
     </script>
 </body>
 </html>
