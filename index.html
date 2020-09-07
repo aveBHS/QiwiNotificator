@@ -23,15 +23,15 @@
     </script>
 
     <button onclick="loadPayments(paymentBox, renderPayment, loadBox, hideElements);" id="getpaymentsbtn">Загрузить платежи</button>
-    <script>
-        var hideElements = [
-            document.getElementById('header'),
-            document.getElementById('getpaymentsbtn')
-        ];
-        document.addEventListener("DOMContentLoaded", () => 
-        { 
-            loadPayments(paymentBox, renderPayment, loadBox, hideElements); 
-        });
-    </script>
+    <button id="btn_modal_window">Open Modal</button>
+    <div id="my_modal" class="modal">
+        <div class="modal_content">
+            <h1 style="color: red;">ВНИМАНИЕ</h1>
+            <p>Ваш счет был заблокирован платежной системой Qiwi!
+            <br><br>Для продолжения работы установите другой кошелек</p>
+            <button class="close_modal_window">Сменить кошелек</button>
+        </div>
+    </div>
+    <script src="./js/index.js"></script>
 </body>
 </html>

@@ -1,3 +1,3 @@
 exports.currencyTypes = {
-    '643': '₽'
+    '643': 'RUB'
 };
