@@ -23,5 +23,8 @@
     </script>
 
     <button onclick="loadPayments(paymentBox, renderPayment, loadBox);" id="getpaymentsbtn">Загрузить платежи</button>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => { loadPayments(paymentBox, renderPayment, loadBox); });
+    </script>
 </body>
 </html>
